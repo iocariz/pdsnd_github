@@ -165,14 +165,14 @@ def user_stats(df, city):
     user_types = df['User Type'].value_counts()
     print('User Type: {}'.format(user_types))
 
-    # Add exception to avoid erros if there are no gender statistics
+    # Add exception to avoid errors if there are no gender statistics
     try:
         gender = df['Gender'].value_counts()
         print('Genders: {}'.format(user_types))
     except KeyError:
         print("We're sorry! There is no data of user genders for {}.".format(city.title()))
 
-    # TO DO: Display earliest, most recent, and most common year of birth
+    # Add exception to avoid errors if there are no birth data statistics
     try:
         earliest_YOB = df['Birth Year'].min()
         most_recent_YOB = df['Birth Year'].max()
