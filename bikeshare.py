@@ -24,7 +24,7 @@ def get_filters():
             print("\nWe are working with {} data".format(city.upper()))
             break
         else:
-            print('\nPlease choose a valid city, either chicago, new york city, or washington.')  
+            print('\nPlease choose a valid city, either chicago, new york city, or washington.')
             break
 
     # TO DO: get user input for month (all, january, february, ... , june)
@@ -48,7 +48,7 @@ def get_filters():
         else:
             print('\nPlease choose a valid day of the week from the list (sunday, monday, tuesday, wednesday, thursday, friday, saturday, all)\n')
             break
-            
+
     print('-'*40)
 
     print('-'*40)
@@ -69,22 +69,22 @@ def load_data(city, month, day):
     # load data file into a dataframe
     data_file = CITY_DATA[city]
     df = pd.read_csv(data_file)
-    
+
     # Convert 'Start Time' column to datetime
     df['Start Time'] = pd.to_datetime(df['Start Time'])
-    
+
     # extract month and day of week from Start Time to create new columns
     df['month'] = df['Start Time'].dt.month
     df['day_of_week'] = df['Start Time'].dt.weekday_name
 
-    # filter by month if applicable 
+    # filter by month if applicable
     if month != 'all':
         # use the index of the months list to get the corresponding int
         months = ['january', 'february', 'march', 'april', 'may', 'june']
-        month = months.index(month) + 1 
+        month = months.index(month) + 1
         # filter by month to create the new dataframe
         df = df[df['month'] == month]
-    
+
     # filter by day of week if applicable
     if day != 'all':
         # filter by day of week to create the new dataframe
@@ -158,19 +158,19 @@ def trip_duration_stats(df):
 def user_stats(df, city):
     """Displays statistics on bikeshare users."""
 
-    print('\nCalculating User Stats...\n')
+    praint('\nCalculating User Stats...\n')
     start_time = time.time()
 
     # TO DO: Display counts of user types
     user_types = df['User Type'].value_counts()
     print('User Type: {}'.format(user_types))
 
-    # TO DO: Display counts of gender
+    # Add exception to avoid erros if there are no gender statistics
     try:
         gender = df['Gender'].value_counts()
         print('Genders: {}'.format(user_types))
     except KeyError:
-        print("We're sorry! There is no data of user genders for {}.".format(city.title()))        
+        print("We're sorry! There is no data of user genders for {}.".format(city.title()))
 
     # TO DO: Display earliest, most recent, and most common year of birth
     try:
@@ -186,17 +186,17 @@ def user_stats(df, city):
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
 
-# Function to display raw data upon request.    
-def display_raw_data(df):    
+# Function to display raw data upon request.
+def display_raw_data(df):
     counter = 0
-    user_input = input('\nDo you want to see 5 lines of raw data? Enter yes or no.\n').lower() 
+    user_input = input('\nDo you want to see 5 lines of raw data? Enter yes or no.\n').lower()
     while True :
         if user_input != 'no':
             print(df.iloc[counter : counter + 5])
             counter += 5
             user_input = input('\nDo you want to see more raw data? Enter yes or no.\n')
         else:
-            break    
+            break
 
 def main():
     while True:
