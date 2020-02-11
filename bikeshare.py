@@ -186,8 +186,8 @@ def user_stats(df, city):
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
 
-# Function to display raw data upon request.
 def display_raw_data(df):
+    """ Display raw data upon user request"""  
     counter = 0
     user_input = input('\nDo you want to see 5 lines of raw data? Enter yes or no.\n').lower()
     while True :
